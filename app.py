@@ -10,7 +10,23 @@ app.secret_key = "MY_SUPER_SECRET_KEY"
 def home():
 	return render_template("home.html")
 
+
+@app.route('/store')
+def store():
+	n = query_all
+	return render_template("store.html", products = n)
+
+@app.route('/store/cart')
+def cart():
+	n = query_all()
+	return render_template("cart.html", products = n)	
+
+@app.route('/store/about')
+def about():
+	return render_template("about.html")
 	
+
+
 
 #####################
 
