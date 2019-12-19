@@ -13,7 +13,7 @@ def home():
 
 @app.route('/store')
 def store():
-	n = query_all
+	n = query_all()
 	return render_template("store.html", products = n)
 
 @app.route('/store/cart')
