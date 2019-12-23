@@ -1,40 +1,61 @@
-from sqlalchemy import Column, Integer, String, Date, ForeignKey, Float, Boolean, DateTime
-from sqlalchemy.ext.declarative import declarative_base
-
-from model import Base, Product
-
-
+from model import *
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker,scoped_session
 
 
 engine = create_engine('sqlite:///database.db')
 Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
-session = DBSession()
+session = scoped_session(sessionmaker(bind=engine,autoflush=False))
+
+def add_product(Name, Price, Picture, Description):
+	product_object =product(
+		Name = Name,
+		Price = Price,
+		Picture = Picture,
+		Description = Description)
+	session.add(product_object)
+	session.commit()
+ 
+
+add_product("Turkey Samdwich", 20,"https://www.google.co.il/search?q=turkey+sandwich&safe=strict&client=ubuntu&hs=hep&sxsrf=ACYBGNSWQPV8uGAnuUOrL6eOdpi3O10gkA:1577122934233&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjLhoziqMzmAhUGkRQKHbnFDLsQ_AUoAXoECA8QAw#", "expired")
+	
+
+def query_by_id(id, Name):
+	product_object =session.query(
+		product).filter_by()
+	id=their_idfirst()
+	
+
+def delete_product(Name):
+	product_object =session.query(
+		product).filter_by (Name = Name).delete()
+	session.commit()
 
 
-from model import Base, Product
+def query_all():
+	product_object = session.query(
+		product).all()	
+	return product_object
 
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 
-engine = create_engine('sqlite:///database.db')
-Base.metadata.create_all(engine)
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
+def return_product(id):
+	product_object = session.query(
+		product).filter_by(
+		id=their_id).first()
+	return product_object
 
 
-Base = declarative_base()
 
-   __tablename__ = 'students'
-   id = Column(Integer, primary_key=True)
-   name = Column(String)
-   price = Column(float)
-   picture = Column(String)
-   description = Column(String)
+def add_to_cart(productID):
+	cart_object = cart(
+		cart_ID= productID)
+	session.add(cart_object)
+	session.commit()
+
+
 
 
 

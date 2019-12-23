@@ -18,6 +18,8 @@
   font-size: 18px;
 }
 
+
+
 button {
   border: none;
   outline: 0;
@@ -43,21 +45,19 @@ button:hover, a:hover {
 	</style>
 </head>
 <body>
-	<div class="card">
-  <img src="jeans3.jpg" alt="Sandwiches" style="width:100%">
-  <h1>Turkey Sandwich</h1>
-  <p class="price">$19.99</p>
-  <p>Expired</p>
-  <p><button>Add to Cart</button></p>
-</div>
+{% for n in products %}
+
 
 	<div class="card">
-	<img src="jeans3.jpg" alt="Sandwiches" style="width:100%">
-  <h1>Wara dwali, Grape leaves</h1>
-  <p class="price">$19.99</p>
-  <p>Expired</p>
+  <img src="{{n.image}}" alt="Sandwiches" style="width:100%">
+  <h1>{{n.name}}</h1>
+  <p> {{n.price}}</p>
+  <p>{{n.description}}</p>
   <p><button>Add to Cart</button></p>
+{% endfor %}
+
 </div>
+
 
 
 </body>
